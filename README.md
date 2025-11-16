@@ -1,8 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Todo Admin Panel
+
+A modern, responsive todo management admin panel built with Next.js, TypeScript, and Tailwind CSS. This application provides a complete task management solution with user authentication, profile management, and advanced todo operations.
+
+## Features
+
+### Authentication
+
+- User login and signup
+- Cookie-based authentication
+- Protected routes
+
+### Todo Management
+
+- Create, read, update, and delete todos
+- Search todos by title
+- Filter todos by deadline (Today, 5 Days, 10 Days, 30 Days)
+- Responsive todo cards and table view
+
+### User Profile
+
+- Update user information (name, email, phone, address, date of birth)
+- Profile image upload with preview
+- Real-time profile updates
+
+### UI/UX
+
+- Fully responsive design for mobile, tablet, and desktop
+- Modern sidebar navigation
+- Clean and intuitive interface
+- Loading states and error handling
+- Toast notifications for user feedback
+
+## Tech Stack
+
+- **Framework:** Next.js 14.2.30 (Pages Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **State Management:** React Context API
+- **HTTP Client:** Axios
+- **Icons:** Lucide React
+- **Notifications:** React Hot Toast
+- **Authentication:** Cookie-based (js-cookie)
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- Node.js (v18 or higher)
+- npm, yarn, pnpm, or bun
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+cd todo-web-application
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+### 3. Environment Setup
+
+Create a `.env.local` file in the root directory:
+
+```bash
+cp .env.local.example .env.local
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
@@ -14,27 +90,113 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at [http://localhost:3022](http://localhost:3022)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### 5. Build for production
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+```bash
+npm run build
+npm start
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+src/
+├── components/
+│   ├── FormField/          # Reusable form components
+│   │   ├── TextField.tsx
+│   │   ├── PasswordField.tsx
+│   │   ├── DatePickerInput.tsx
+│   │   ├── TextArea.tsx
+│   │   ├── SearchField.tsx
+│   │   └── ImageUploader.tsx
+│   ├── layouts/            # Layout components
+│   │   ├── Header.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── PageHeader.tsx
+│   ├── TodoManagement/     # Todo-related components
+│   │   ├── TodoForm.tsx
+│   │   ├── TodoTable.tsx
+│   │   └── TodoCard.tsx
+│   └── common/             # Common components
+│       └── Modal.tsx
+├── contexts/               # React Context providers
+│   └── UserContext.tsx
+├── hooks/                  # Custom React hooks
+│   └── useAuth.ts
+├── lib/                    # External library configurations
+│   └── axios.ts
+├── pages/                  # Next.js pages
+│   ├── _app.tsx
+│   ├── index.tsx
+│   ├── login.tsx
+│   ├── signup.tsx
+│   ├── reset-password.tsx
+│   ├── profile.tsx
+│   └── todos/
+│       ├── index.tsx
+│       └── create.tsx
+├── styles/                 # Global styles
+│   └── globals.css
+└── utils/                  # Utility functions
+    └── APIRequester.ts
+```
 
-## Learn More
+## Key Features Explained
 
-To learn more about Next.js, take a look at the following resources:
+### Search and Filter
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The todo list supports:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Real-time search:** Filter todos by title and description
+- **Date-based filtering:** Filter by deadline dates
+- API-driven filtering for optimal performance
 
-## Deploy on Vercel
+### Component Architecture
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All form fields are modular and reusable:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- `TextField` - Standard text input with label
+- `PasswordField` - Password input with visibility toggle
+- `DatePickerInput` - Native HTML5 date picker
+- `TextArea` - Multi-line text input
+- `SearchField` - Search input with icon
+- `ImageUploader` - Image upload with preview and camera icon
+
+### State Management
+
+- Uses React Context API for global user state
+- Local state management with React hooks
+- Automatic token refresh on user updates
+
+## API Integration
+
+The application expects a REST API with the following endpoints:
+
+### Authentication
+
+- `POST /login/` - User login
+- `POST /register/` - User registration
+- `POST /password-reset/` - Password reset
+
+### User
+
+- `GET /user/` - Get current user
+- `PUT /user/` - Update user profile
+
+### Todos
+
+- `GET /todos/` - Get todos (supports search and date filter)
+- `POST /todos/` - Create todo
+- `PUT /todos/:id/` - Update todo
+- `DELETE /todos/:id/` - Delete todo              
+
+## Available Scripts
+
+| Command         | Description                           |
+| --------------- | ------------------------------------- |
+| `npm run dev`   | Start development server on port 3022 |
+| `npm run build` | Build for production                  |
+| `npm run start` | Start production server               |
+| `npm run lint`  | Run ESLint                            |
