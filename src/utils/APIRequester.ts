@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { confirmDelete } from "@/components/common/GlobalConfirmation";
 
 interface ResourceHandler {
   method: "post" | "get" | "patch" | "delete" | "put";
@@ -26,10 +27,10 @@ export const handleResource = async ({
 
   try {
     if (method === "delete") {
-      const confirmDelete = window.confirm("Are You Sure To Delete ?");
+      const isConfirmed = await confirmDelete("Are you sure you want to delete this item?");
 
-      if (!confirmDelete) {
-        return;
+      if (!isConfirmed) {
+        throw new Error("Delete cancelled by user");
       }
     }
 

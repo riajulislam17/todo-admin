@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { Toaster } from "react-hot-toast";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import { UserProvider } from "@/contexts/UserContext";
+import GlobalConfirmation from "@/components/common/GlobalConfirmation";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -67,6 +68,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Toaster position="bottom-right" />
+      <GlobalConfirmation />
       <UserProvider>
         <AdminLayout>
           <Component {...pageProps} />
